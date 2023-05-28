@@ -9,15 +9,15 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.temp.rule=Host(`temp.wuhanstudio.uk`)"
-        - "traefik.http.routers.temp.entrypoints=web"
-        - "traefik.http.services.temp.loadbalancer.server.port=80"
+        - "traefik.http.routers.rtt.rule=Host(`rtt.wuhanstudio.uk`)"
+        - "traefik.http.routers.rtt.entrypoints=web"
+        - "traefik.http.services.rtt.loadbalancer.server.port=80"
         # TLS
-        - "traefik.http.routers.temps.rule=Host(`temp.wuhanstudio.uk`)"
-        - "traefik.http.routers.temps.entrypoints=websecure"
-        - "traefik.http.routers.temps.tls.certresolver=myhttpchallenge"
+        - "traefik.http.routers.rtts.rule=Host(`rtt.wuhanstudio.uk`)"
+        - "traefik.http.routers.rtts.entrypoints=websecure"
+        - "traefik.http.routers.rtts.tls.certresolver=myhttpchallenge"
         # Redirect
-        - "traefik.http.routers.temp.middlewares=https_redirect"
+        - "traefik.http.routers.rtt.middlewares=https_redirect"
         - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
     networks:
       - traefik-public
