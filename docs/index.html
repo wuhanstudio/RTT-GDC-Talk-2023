@@ -39,13 +39,512 @@
                               <img align="center" width=20% src="images/detection.png" />
                               <img align="center" width=20% src="images/iot.png" />
                               <img align="center" width=20% src="images/minm.png" />
-
                         </div>
                     </div>
                     <p style="font-size: 22px;"><i class="fab fa-github"></i> &nbsp; <a href="https://wuhanstudio.uk">Source Code</a></p>
 
                     <aside class="notes">
                     </aside>
+                </section>
+
+                <section>
+                    <h4>ROS for Autonomous Driving</h4>
+                    <div class="r-stack">
+                        <a href="https://github.com/carla-simulator/ros-bridge"><img src="images/carla.png" class="fragment fade-out" data-fragment-index="1" style="width: 80%;"></a>
+                        <a href="https://epan-utbm.github.io/utbm_robocar_dataset/"><img src="images/utbm_robocar.jpg" class="fragment fade-in" data-fragment-index="1" style="width: 60%;"></a>
+                    </div>
+                    <a href="https://github.com/carla-simulator/ros-bridge"><span style="font-size: 0.6em;">Carla Simulator - ROS Bridge</span></a>
+                    <aside class="notes">
+                        Similarly, we can test autonomous driving in a simulated environment first. When eveything is ready, we can replace simulated sensors with real sensors, and now we have a real autonomous driving car. So this is the introduction to ROS, hopefully you will find ROS useful.
+                    </aside>
+                </section>
+
+                <section>
+                    <h5>Adversarial ROS Detection <a href="https://github.com/wuhanstudio/adversarial-ros-detection" style="font-size: 0.8em;"><ion-icon name="logo-github"></ion-icon></a></h5>
+                    <div class="r-stack">
+                        <img src="images/1.png" class="">
+                        <img src="images/2.png" class="fragment fade-in">
+                        <img src="images/3.png" class="fragment fade-in">
+                    </div>
+                    <p style="font-size: 0.6em;" class="fragment">ROS decouples software from hardware.</p>
+                    <p style="font-size: 0.6em;" class="fragment">The same code works for both simulated robots and real robots.</p>
+                    <p style="font-size: 0.6em;"></p>
+                    <!-- <p style="font-size: 0.6em;"><a href="https://dabit-industries.github.io/turtlebot2-tutorials/14b-OpenCV2_Python.html">ROS Tutorial</a></p> -->
+                    <aside class="notes">
+                        In this project, eveything is published as ROS topics. If we would like to send out information, we can publish a topic; On the other hand, if we would like to receive information, we subscribe to a topic. For example, if we would like to send out the image from the simulator to the browser, we can publish a topic named /image. While if we would like to receive the control command from the keyboard, we can subscribe to a topic named /cmd_vel. 
+                        
+                        So what if the benefit of doing this?  Well, it decouple each component. For example, from the browsers perspective, it receives images from the topic /image.It has no idea where the image comes from. If we replace the simulator with a real robot. We don't really need to change the code for the browser, because we still have the same topic /image. Similarly, we can replace the keyboard with a controller, and eveything remains the same as long as we have the same topic.
+                    </aside>
+                </section>
+                
+                <section>
+                    <img src="images/overview.png" width="50%" alt="">
+                    <img src="images/ros.png" width="80%" alt="">
+                </section>
+
+                <section>
+                    <span class="menu-title" style="display: none">Adversarial Attacks</span>
+                    <!-- <p class="r-fit-text">Deep neural networks are vulnerable to adversarial attacks in various tasks.</p> -->
+                    <img src="images/fgsm.png" alt="" />
+                    <p class="" style="font-size: 28px;">Adversarial attacks against image classification <sup style="font-size: 20px;">[1]</sup></p>
+                        <!-- <p class="fragment r-fit-text">Instead of minimizing the loss function, the adversarial attack maximizes it.</p> -->
+                    <div class="fragment r-vstack">
+                        <img src="images/dpatch.png" alt="">
+                        <span class="" style="font-size: 28px;">Adversarial attacks against object detection  &nbsp; <a href="https://arxiv.org/abs/1906.11897"><i class="far fa-file-pdf"></i></a></span>
+                    </div>
+                    <p style="font-size: 20px;">[1] J. Z. Kolter and A. Madry, Adversarial Robustness - Theory and Practice, NeurIPS 2018 tutorial.</p>
+                    <aside class="notes">
+                        Say for example, on the left side, we have a pig, and it is recognized as a pig by the image classification model. If we apply a small perturbation to the image, we have another pig on the right side. <br /> 
+                        <br />
+                        The perturbation is unperceptible to human eyes, we cannot really tell the difference. right? But the pig on the right side is now recognized as an airliner. Somehow the pig can fly now. So we can attack image classification models by adding a small perturbation to the input image. <br />
+                        <br />
+                        Similarly, we can attack object detection models. 
+                    </aside>
+                </section>
+
+                <section data-background-video="images/gazebo.mp4" data-background-video-loop data-background-video-muted>
+                </section>
+
+                <section data-background-video="images/detection_tb3.mp4" data-background-video-loop data-background-video-muted>
+                <aside class="notes">
+                    Now we have a real robot using the same code. This is one of the benefits of using ROS, the same code works for both simulated and real robots. BTW, eveything is open sourced here.
+                </aside>
+                </section>
+
+                <section>                
+                    <img src="images/rtt_ros.png" class="">
+                    <img src="images/rosserial_uros.png" class="fragment">
+                    <table class="fragment" style="font-size: 0.6em;">
+                        <thead>
+                            <tr>
+                                <th>rosserial</th>
+                                <th>micro_ros</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ROS1</td>
+                                <td>ROS2</td>
+                            </tr>
+                            <tr>
+                                <td>C++</td>
+                                <td>C/C++</td>
+                            </tr>
+                            <tr>
+                                <td>serial & TCP</td>
+                                <td>serial & UDP</td>
+                            </tr>
+                            <tr>
+                                <td>8bit - 32bit MCUs</td>
+                                <td>32bit MCUs</td>
+                            </tr>
+                            <tr>
+                                <td>amd64 arm64 <strong>armhf</strong></td>
+                                <td>amd64 arm64</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <aside class="notes">
+                        Besides, micro_ros targets at better hardwares. 
+                        Hopefully, this talbe will help you to decide which one is better for your application.
+                        Next, I'll introduce roserial and micro_ros respectively.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>ROS1 on RT-Thread (rosserial)</h3>
+                </section>
+
+                <section>
+                    <h6>Choose the distribution (ROS1)</h6>
+                    <table style="font-size: 0.5em; margin-bottom: 3%;">
+                        <thead>
+                            <tr>
+                                <th>ROS1</th>
+                                <th>Ubuntu</th>
+                                <th>Debian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Noetic</td>
+                                <td>Ubuntu 20.04 (Focal)</td>
+                                <td>Debian 10 (Buster)</td>
+                            </tr>
+                            <tr>
+                                <td>Melodic</td>
+                                <td>Ubuntu 18.04 (Bionic)</td>
+                                <td>Debian 9 (Stretch)</td>
+                            </tr>
+                            <tr>
+                                <td>Kinetic</td>
+                                <td>Ubuntu 16.04 (Xenial)</td>
+                                <td>Debian 8 (Jessie)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment">
+                        <h6>Install ROS1 (Noetic) &nbsp;<a href="http://wiki.ros.org/noetic/Installation/Ubuntu"><i class="fa fa-solid fa-book"></i></a></h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape data-line-numbers="1-4|6-8|10-12" class="language-bash">
+                                $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+                                $ sudo apt install curl # if you haven't already installed curl
+                                $ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+                                $ sudo apt update
+
+                                $ sudo apt install ros-noetic-ros-base
+                                $ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+                                $ source ~/.bashrc
+
+                                $ sudo apt install python3-rosdep
+                                $ sudo rosdep init
+                                $ rosdep update
+                            </code>
+                        </pre>
+                        <aside class="notes">
+                            First thing first, we need to select the distribution of ROS. There are several distributions, kinetic, melodic, and noeric. Each distribution is released with a corresponding version of Ubuntu and Debian.
+
+                            Add the repo
+                            Update the environment
+                            Initialization
+
+                            So now we have ROS on linux. How do we set up the connection with RT-Thread?
+                        </aside>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>Install rosserial</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ sudo apt install ros-noetic-rosserial-arduino
+                            </code>
+                        </pre>
+                        
+                    </div>
+                    <aside class="notes">
+                        First, we nneed to start the rosserial node on linux, so that we can communicate with RT-Thread using serial port, of course you can choose TCP connection as well.
+
+                        Later after that, we can start the rosserial program on RT-Thread, and publish a topic.
+
+                        Well, this maybe over-simplified.
+                    </aside>
+                </section>
+                
+                <section>
+                    <div class="">
+                        <h6>Ubuntu &nbsp;<a href="http://github.com/wuhanstudio/rt-rosserial"><i class="fa fa-solid fa-book"></i></a></h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ roscore
+                                $ rosrun rosserial_python serial_node.py /dev/ttyUSB0
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>RT-Thread</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                msh > rosserial_hello_world_serial_example
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>Echo the topic</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ rostopic echo /chatter
+                            </code>
+                        </pre>
+                    </div>
+
+                    <a href="https://asciinema.org/a/435989" target="_blank" class="fragment"><img src="https://asciinema.org/a/435989.svg" width="30%"/></a>
+                    <!-- <script id="asciicast-435989" src="https://asciinema.org/a/435989.js" async></script> -->
+
+                    <img src="images/ros-on-rtt-rosserial.png" width="70%"/>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>rosserial port on RT-Thread (RTTHardware.h) <a href="https://github.com/wuhanstudio/rt-rosserial/blob/master/port/RTTHardware.h"> &nbsp;<i class="fab fa-github"></i></a></h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-cpp">
+                                #ifndef ROSSERIAL_UART_NAME
+                                    #define ROSSERIAL_UART_NAME "uart2"
+                                #endif
+
+                                class RTTHardware {
+                                    public:
+                                        RTTHardware();
+
+                                        void setBaud(long baud);                                    
+                                        int  getBaud();
+
+                                        void init();
+
+                                        int  read();
+                                        void write(uint8_t* data, int length);
+
+                                        unsigned long time();
+                                };
+                            </code>
+                        </pre>
+                    </div>
+                    <aside class="notes">
+                        Now, we have set up the connection between RT-Thread and ROS. If you find it interesting, and would like to make contributions, please feel free to make pull requests. And you can find the implementation here. Basically, I implemented read and write functions for serial conmmucation, and read and write functions for TCP connection. This is the place where you can find the port of rosserial to rt-thread.
+                    </aside>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>rosserial port on RT-Thread (RTTTcpHardware.h)  &nbsp;<a href="https://github.com/wuhanstudio/rt-rosserial/blob/master/port/RTTTcpHardware.h"><i class="fab fa-github"></i></a></h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-cpp">
+                                #ifndef ROSSERIAL_TCP_RECV_TIMEOUT
+                                    #define ROSSERIAL_TCP_RECV_TIMEOUT 200000
+                                #endif
+
+                                #ifndef ROSSERIAL_TCP_SEND_TIMEOUT
+                                    #define ROSSERIAL_TCP_SEND_TIMEOUT 200000
+                                #endif
+
+                                class RTTTcpHardware {
+                                public:
+                                    RTTTcpHardware();
+
+                                    void setConnection(const char* url, int port = 11411);
+
+                                    void init();
+
+                                    int  read();
+                                    void write(const uint8_t* data, int length);
+
+                                    unsigned long time();
+                                };
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>ROS2 on RT-Thread (micro_ros)</h3>
+                </section>
+
+                <section>
+                    <h6>Choose the distribution (ROS2)</h6>
+                    <table style="font-size: 0.5em; margin-bottom: 3%;">
+                        <thead>
+                            <tr>
+                                <th>ROS2</th>
+                                <th>Ubuntu</th>
+                                <th>Debian</th>
+                                <th>RHEL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Galactic</td>
+                                <td>Ubuntu 20.04 (Focal)</td>
+                                <td>Debian 10 (Buster)</td>
+                                <td>RHEL 8 64-bit</td>
+                            </tr>
+                            <tr>
+                                <td>Foxy</td>
+                                <td>Ubuntu 20.04 (Focal)</td>
+                                <td>Debian 10 (Buster)</td>
+                                <td>-</td>
+                            </tr>
+                            <tr style="color: gray;">
+                                <td>Dashing</td>
+                                <td>Ubuntu 18.04 (Bionic)</td>
+                                <td>Debian 9 (Stretch)</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment">
+                        <h6>Install ROS2 (Galactic) <a href="https://docs.ros.org/en/crystal/Installation/Linux-Install-Debians.html">&nbsp;<i class="fa fa-solid fa-book"></i></a></h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape data-line-numbers="1-6|8-10|12-14" class="language-bash">
+                                $ sudo apt install software-properties-common
+                                $ sudo add-apt-repository universe
+                                $ sudo apt update && sudo apt install curl gnupg lsb-release
+                                $ sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
+                                $ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+                                $ sudo apt update
+
+                                $ sudo apt install ros-galactic-ros-base
+                                $ echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+                                $ source ~/.bashrc
+
+                                $ sudo apt install python3-rosdep
+                                $ sudo rosdep init
+                                $ rosdep update
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>Ubuntu &nbsp;<a href="https://github.com/wuhanstudio/micro_ros"><i class="fa fa-solid fa-book"></i></a></h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ docker run -it -p 9999:9999/udp --privileged microros/micro-ros-agent:galactic udp4 -p 9999
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>RT-Thread</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                msh > microros_pub_int32
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>Echo the topic</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ docker exec -it YOUR_DOCKER_CONTAINER_NAME /bin/bash
+                                $ ros2 topic echo /micro_ros_rtt_node_publisher
+                            </code>
+                        </pre>
+                    </div>
+
+                    <a href="https://asciinema.org/a/TQWgX9lxwt5c8x58ko1bpmAWS" target="_blank" class="fragment"><img src="https://asciinema.org/a/TQWgX9lxwt5c8x58ko1bpmAWS.svg" width="30%"/></a>
+
+                    <img src="images/ros-on-rtt-miroros.png" width="70%"/>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>micro_ros port on RT-Thread (micro_ros_rtt.h) <a href="https://github.com/wuhanstudio/micro_ros/tree/master/src"> &nbsp;<i class="fab fa-github"></i></a></h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-cpp">
+                                #if defined MICRO_ROS_USE_SERIAL
+                                    bool   rtt_transport_open(struct uxrCustomTransport * transport);
+                                    bool   rtt_transport_close(struct uxrCustomTransport * transport);
+                                    size_t rtt_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
+                                    size_t rtt_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err);
+                                    int clock_gettime(clockid_t unused, struct timespec *tp);
+                                #endif  // MICRO_ROS_USE_SERIAL
+
+                                #if defined MICRO_ROS_USE_UDP
+                                    bool   rtt_udp_transport_open(struct uxrCustomTransport * transport);
+                                    bool   rtt_udp_transport_close(struct uxrCustomTransport * transport);
+                                    size_t rtt_udp_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
+                                    size_t rtt_udp_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err);
+                                    int clock_gettime(clockid_t unused, struct timespec *tp);
+                                #endif  // MICRO_ROS_USE_UDP
+                            </code>
+                        </pre>
+                    </div>
+                    <aside class="notes">
+                        Once again, you would like to make contributions, feel free to create pull requests.
+                    </aside>
+                </section>
+
+                <section data-auto-animate>
+                    <span class="menu-title" style="display: none">Overview</span>
+                    <h3 class="r-fit-text">Is Deep Learning Secure for Robots?</h3>
+                    <p class="name" style="font-size: 25px;">RT-Thread 对接 ROS 和机器学习云服务</p>
+                    <div class="r-hstack">
+                        <div>
+                              <img align="center" width=20% src="images/driving.png" />
+                              <img align="center" width=20% src="images/detection.png" />
+                              <img align="center" width=20% src="images/iot.png" />
+                              <img align="center" width=20% src="images/minm.png" />
+                        </div>
+                    </div>
+                </section>
+
+                <section data-background-image="images/rtos.png">
+                    <aside class="notes">
+                        In the previous talk, I introduced why we need a real-time operating system. We can use existing components provided by the operating system to accelerate our development. For example, using RT-Thread, we don't have to write a file system, or a network stack, which makes it much easier to develop an IoT application. <br />
+                        <br />
+                        When it comes to deep learning security on middle-end devices. We cannot really deploly deep learning models on these devices because we do not have enough memory. Under this scenario, we use deep learning cloud services.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Adversarial Classification <a href="https://github.com/wuhanstudio/adversarial-classification"><i class="fab fa-github"></i></a>&nbsp;</h2>
+                    <p class="" data-fragment-index="1" style="color: blue; font-size: 20px;">Attacking Image Classification Cloud Services.</p>
+                    <div class="r-vstack">
+                        <img class="" width="20%" src="images/deepapi.png">
+                    </div>
+                    <aside class="notes">
+                        We can send images to a classification cloud service, and get the classification results using APIs. Well, unfortunately, image classification cloud services are vulnerable to adversarial attacks as well. (10min) <br />
+                    </aside>
+                </section>
+
+                <section data-background-video="images/deepapi.mp4" data-background-video-muted>
+                    <aside class="notes">
+                        Say for example, here we have an image classification cloud service, where we can upload images to the cloud server, and receive the classification results. Now, let's upload an image.<br />
+                        <br />
+                        Besides uploading images from the website, we can also use the API to do image classification on microcontrollers. <br />
+                    </aside>
+                </section>
+
+                <section data-background-video="images/bat.mp4" data-background-video-muted>
+                    <aside class="notes">
+                        This is the last demo video.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Man-in-the-Middle Attack <a href="https://github.com/wuhanstudio/adversarial-camera"><i class="fab fa-github"></i></a>&nbsp;</h3>
+                    <p class="" data-fragment-index="1" style="color: blue; font-size: 20px;">A hardware attack against Object Detection.</p>
+                    <div class="r-vstack">
+                        <img class="" width="40%" src="images/demo.jpg">
+                    </div>
+                     <aside class="notes">
+                        Let's move on to the second project. Man-in-the-Middle Attack, a hardware attack against object detection. As its name suggests, we apply the perturbation in the middle, between the USB camera and the detection system. We use a raspberry pi to inject the perturbation.
+                    </aside>
+                </section>
+
+                <section data-background-image="images/smart.png">
+                    <aside class="notes">
+                        It is smaller, faster, and safer. The kernel size is less than 500KB, and it can boot up in less than 500 milliseconds.
+                    </aside>
+                </section>
+
+                <section data-background-image="images/gnu.png">
+                    <aside class="notes">
+                        More importantly, we can take advantage of existing linux applications to accelerate our development. Using RT-Thread Smart, we can accelerate our attacks. We are still working on it, we will release a demo of our attack using RT-Thread Smart in the future. (9min)
+                    </aside>
+                </section>
+
+                <section data-background-video="images/demo.mp4" data-background-video data-background-video-muted data-menu-title="Demo Video">
+                    <aside class="notes">
+                        Here's a quick demo. We have a USB camera and a detection system. We used a raspberry pi version 4 in the middle to inject the perturbation. The raspberry pi reads the image from the USB camera, injects the perturbation, and then simulates a virtual camera to the detection system. The detection system has no idea that the image is manipulated.
+                    </aside>
+                </section>
+
+                <section data-background-video="images/minm.mp4" data-background-video data-background-video-muted>
+                    <aside class="notes">
+                        This is the original input image.
+                        After injecting the perturbation, the detection system detects a large number of objects everywhere. Unbelievable! Right? (7min)
+
+                        The attack consists of two steps. Step 1: Generating the perturbation. Step 2: Applying the perturbation.
+                    </aside>
+                </section>
+
+                <section data-auto-animate>
+                    <span class="menu-title" style="display: none">Overview</span>
+                    <h3 class="r-fit-text">Is Deep Learning Secure for Robots?</h3>
+                    <p class="name" style="font-size: 25px;">RT-Thread 对接 ROS 和机器学习云服务</p>
+                    <div class="r-hstack">
+                        <div>
+                              <img align="center" width=20% src="images/driving.png" />
+                              <img align="center" width=20% src="images/detection.png" />
+                              <img align="center" width=20% src="images/iot.png" />
+                              <img align="center" width=20% src="images/minm.png" />
+                        </div>
+                    </div>
                 </section>
 
                 <section>
